@@ -10,10 +10,12 @@ pub extern crate url;
 mod read;
 mod write;
 
-pub use read::{Reader, EntryReader, EntryExtReader, Entries, EntryExts,
-               EntryExtReaderConstructionError, ReadEntryExtError};
-pub use write::{Writer, EntryWriter, EntryExtWriter};
+pub use read::{
+    Entries, EntryExtReader, EntryExtReaderConstructionError, EntryExts, EntryReader,
+    ReadEntryExtError, Reader,
+};
 pub use url::Url;
+pub use write::{EntryExtWriter, EntryWriter, Writer};
 
 /// An entry in an **M3U** multimedia playlist.
 ///
@@ -54,9 +56,7 @@ pub struct ExtInf {
     pub name: String,
 }
 
-
 impl Entry {
-
     /// Whether or not the `Entry` is a `Path`.
     pub fn is_path(&self) -> bool {
         match *self {
@@ -75,7 +75,8 @@ impl Entry {
 
     /// Extend the entry with extra information including the duration in seconds and a name.
     pub fn extend<N>(self, duration_secs: f64, name: N) -> EntryExt
-        where N: Into<String>,
+    where
+        N: Into<String>,
     {
         EntryExt {
             extinf: ExtInf {
@@ -85,12 +86,12 @@ impl Entry {
             entry: self,
         }
     }
-
 }
 
 /// A helper function to simplify creation of the `Entry`'s `Path` variant.
 pub fn path_entry<P>(path: P) -> Entry
-    where P: Into<std::path::PathBuf>,
+where
+    P: Into<std::path::PathBuf>,
 {
     Entry::Path(path.into())
 }
