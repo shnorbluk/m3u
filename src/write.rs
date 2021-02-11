@@ -1,6 +1,6 @@
-use {Entry, EntryExt};
 use std;
 use std::io::Write;
+use {Entry, EntryExt};
 
 /// A writer that accepts entries of type `E` and writes the associated M3U format.
 ///
@@ -59,19 +59,21 @@ where
     ///
     /// Writes the `Path` or `Url` in plain text, ending with a newline.
     pub fn write_entry(&mut self, entry: &Entry) -> Result<(), std::io::Error> {
-        let Writer { ref mut writer, ref mut line_buffer, .. } = *self;
+        let Writer {
+            ref mut writer,
+            ref mut line_buffer,
+            ..
+        } = *self;
         line_buffer.clear();
         write_entry(line_buffer, entry)?;
         writer.write_all(line_buffer)
     }
-
 }
 
 impl<'w, W> EntryExtWriter<'w, W>
 where
     W: Write,
 {
-
     /// Create a writer that writes extended M3U `EntryExt`s.
     ///
     /// The `#EXTM3U` header line is written immediately.
@@ -97,7 +99,11 @@ where
     /// assert_eq!(result, "#EXTM3U\n#EXTINF:-1,Channel 1\nhttp://server/stream.mp4\n");
     /// ```
     pub fn write_entry(&mut self, entry_ext: &EntryExt) -> Result<(), std::io::Error> {
-        let Writer { ref mut writer, ref mut line_buffer, .. } = *self;
+        let Writer {
+            ref mut writer,
+            ref mut line_buffer,
+            ..
+        } = *self;
         line_buffer.clear();
         let extinf = &entry_ext.extinf;
         writeln!(
@@ -108,7 +114,6 @@ where
         write_entry(line_buffer, &entry_ext.entry)?;
         writer.write_all(line_buffer)
     }
-
 }
 
 /// Write the given `Entry` into the given `line_buffer`.

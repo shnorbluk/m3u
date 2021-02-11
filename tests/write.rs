@@ -2,7 +2,6 @@ extern crate m3u;
 
 #[test]
 fn entry() {
-
     // Create a multimedia playlist.
     let playlist = vec![
         m3u::path_entry(r"Alternative\Band - Song.mp3"),
@@ -42,15 +41,13 @@ fn entry() {
 
 #[test]
 fn entry_ext() {
-
     // Create a multimedia playlist, including the duration in seconds and name for each entry.
     let playlist = vec![
         m3u::path_entry(r"C:\Documents and Settings\I\My Music\Sample.mp3")
             .extend(123.0, "Sample artist - Sample title"),
         m3u::path_entry(r"C:\Documents and Settings\I\My Music\Greatest Hits\Example.ogg")
             .extend(321.0, "Example Artist - Example title"),
-        m3u::path_entry(r"Sample.mp3")
-            .extend(123.0, "Sample artist - Sample title"),
+        m3u::path_entry(r"Sample.mp3").extend(123.0, "Sample artist - Sample title"),
         m3u::path_entry(r"Greatest Hits\Example.ogg")
             .extend(321.0, "Example Artist - Example title"),
     ];

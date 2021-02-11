@@ -25,7 +25,7 @@ fn test_split_key_val() {
 
 pub fn next_closing_mark_index(s: &str, offset: usize) -> Option<usize> {
     let s = &s[offset..];
-    if s.starts_with(",") {
+    if s.starts_with(',') {
         return None;
     }
 
